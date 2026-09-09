@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joel Pesic — Customer Support Professional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#16233F;
+    --navy-soft:#233457;
+    --paper:#F6F4EF;
+    --paper-dim:#EFEBE1;
+    --teal:#2F6B63;
+    --teal-dark:#234F49;
+    --ink:#23262B;
+    --grey:#767B82;
+    --line:#E1DACB;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif{
+    font-family:"Lora",Georgia,"Times New Roman",serif;
+    color:var(--navy);
+    margin:0;
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+  /* ---------- NAV ---------- */
+  header.site-nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(246,244,239,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 32px;
+    max-width:1080px; margin:0 auto;
+  }
+  .nav-mark{
+    font-family:"Lora",serif; font-weight:600; font-size:19px; color:var(--navy);
+    text-decoration:none; letter-spacing:0.2px;
+  }
+  .nav-links{display:flex; gap:30px; list-style:none; margin:0; padding:0;}
+  .nav-links li{ margin-right:30px; }
+  .nav-links li:last-child{ margin-right:0; }
+  .nav-links a{
+    text-decoration:none; color:var(--ink); font-size:14.5px; font-weight:500;
+    padding-bottom:3px; border-bottom:1px solid transparent;
+    transition:border-color .15s ease, color .15s ease;
+  }
+  .nav-links a:hover{ border-bottom-color:var(--teal); color:var(--teal-dark); }
+  .nav-cta{
+    display:inline-block; font-size:14px; font-weight:600; text-decoration:none;
+    color:#fff; background:var(--navy); padding:9px 18px; border-radius:3px;
+  }
+  .menu-btn{display:none; background:none; border:none; cursor:pointer; padding:6px;}
+  .menu-btn span{display:block; width:22px; height:2px; background:var(--navy); margin:5px 0;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:76px 0 64px;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:center;
+  }
+  .hero h1{
+    font-size:44px; line-height:1.16; font-weight:600; letter-spacing:-0.5px;
+  }
+  .hero p.lede{
+    margin:22px 0 0; font-size:17px; color:#454A52; max-width:46ch;
+  }
+  .hero-actions{ display:flex; gap:14px; margin-top:32px; flex-wrap:wrap; }
+  .hero-actions .btn{ margin:0 14px 10px 0; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    text-decoration:none; font-size:14.5px; font-weight:600;
+    padding:12px 22px; border-radius:3px; border:1px solid transparent;
+  }
+  .btn-primary{ background:var(--teal); color:#fff; }
+  .btn-primary:hover{ background:var(--teal-dark); }
+  .btn-ghost{ border-color:var(--navy); color:var(--navy); }
+  .btn-ghost:hover{ background:var(--navy); color:#fff; }
+
+  /* chat mock */
+  .chat-card{
+    background:#fff; border:1px solid var(--line); border-radius:6px;
+    padding:22px 22px 18px; box-shadow:0 1px 0 rgba(22,35,63,0.03);
+  }
+  .chat-card .chat-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    font-size:12.5px; color:var(--grey); border-bottom:1px solid var(--line);
+    padding-bottom:12px; margin-bottom:16px;
+  }
+  .chat-head strong{ color:var(--navy); font-weight:600; }
+  .bubble{
+    max-width:88%; padding:11px 14px; border-radius:10px; font-size:14.5px;
+    margin-bottom:12px; line-height:1.5; opacity:0; transform:translateY(6px);
+    animation:rise .5s ease forwards;
+  }
+  .bubble.in{ background:var(--paper-dim); color:var(--ink); border-bottom-left-radius:3px; }
+  .bubble.out{
+    background:var(--teal); color:#fff; margin-left:auto; border-bottom-right-radius:3px;
+  }
+  .bubble:nth-child(2){ animation-delay:.15s; }
+  .bubble:nth-child(3){ animation-delay:.55s; }
+  .bubble:nth-child(4){ animation-delay:.95s; }
+  @keyframes rise{ to{ opacity:1; transform:translateY(0); } }
+  .chat-status{
+    display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--teal-dark);
+    font-weight:600; margin-top:14px;
+  }
+  .dot{ width:7px; height:7px; border-radius:50%; background:var(--teal); margin-right:8px; }
+
+  /* ---------- STATS ---------- */
+  .stats{
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    padding:34px 0;
+  }
+  .stats-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:24px;
+  }
+  .stat b{
+    display:block; font-family:"Lora",serif; font-size:28px; color:var(--navy); font-weight:600;
+  }
+  .stat span{ font-size:13.5px; color:var(--grey); }
+
+  /* ---------- SECTION generic ---------- */
+  section{ padding:72px 0; }
+  .section-head{ max-width:56ch; margin-bottom:40px; }
+  .section-head h2{ font-size:28px; font-weight:600; }
+  .section-head p{ color:var(--grey); margin-top:10px; font-size:15.5px; }
+
+  /* ---------- ABOUT ---------- */
+  #about .about-body{ display:grid; grid-template-columns:1.3fr 1fr; gap:56px; }
+  #about p{ font-size:16px; color:#3A3E44; margin:0 0 16px; }
+  .about-side{
+    background:#fff; border:1px solid var(--line); border-radius:6px; padding:22px 24px;
+    font-size:14.5px; align-self:start;
+  }
+  .about-side dt{ color:var(--grey); font-size:12.5px; margin-top:14px; }
+  .about-side dt:first-child{ margin-top:0; }
+  .about-side dd{ margin:2px 0 0; color:var(--navy); font-weight:600; }
+
+  /* ---------- EXPERIENCE ---------- */
+  .timeline{ position:relative; border-left:1px solid var(--line); padding-left:32px; }
+  .tl-item{ position:relative; padding-bottom:44px; }
+  .tl-item:last-child{ padding-bottom:0; }
+  .tl-item::before{
+    content:""; position:absolute; left:-37px; top:4px;
+    width:9px; height:9px; border-radius:50%; background:var(--teal);
+    box-shadow:0 0 0 4px var(--paper);
+  }
+  .tl-date{ font-size:12.5px; color:var(--grey); font-weight:600; }
+  .tl-role{ font-size:19px; font-weight:600; color:var(--navy); margin-top:4px; }
+  .tl-co{ font-size:14px; color:var(--grey); font-style:italic; margin-top:1px; }
+  .tl-desc{ margin-top:10px; font-size:15px; color:#3A3E44; max-width:64ch; }
+
+  /* ---------- SKILLS ---------- */
+  .skill-groups{ display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+  .skill-group h3{ font-size:16px; font-weight:600; margin-bottom:14px; }
+  .tag-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .tag{
+    font-size:13px; color:var(--navy); background:#fff; border:1px solid var(--line);
+    padding:7px 12px; border-radius:16px; margin:0 8px 8px 0;
+  }
+
+  /* ---------- EDU / LANG ---------- */
+  .edu-lang{ display:grid; grid-template-columns:1fr 1fr; gap:40px; }
+  .edu-lang h3{ font-size:15px; font-weight:600; color:var(--grey); margin-bottom:10px; }
+  .edu-lang .item{ margin-bottom:10px; }
+  .edu-lang .item b{ display:block; color:var(--navy); font-size:15.5px; }
+  .edu-lang .item span{ font-size:14px; color:var(--grey); }
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  footer{ background:var(--navy); color:#EDEEF2; padding:64px 0 32px; margin-top:40px; }
+  footer h2{ color:#fff; font-size:30px; font-weight:600; }
+  footer p{ color:#B9C0CE; max-width:48ch; margin-top:12px; font-size:15.5px; }
+  .footer-grid{ display:grid; grid-template-columns:1.2fr 1fr; gap:40px; align-items:end; }
+  .contact-list{ list-style:none; padding:0; margin:26px 0 0; display:flex; flex-direction:column; gap:10px;}
+  .contact-list li{ margin-bottom:10px; }
+  .contact-list li:last-child{ margin-bottom:0; }
+  .contact-list a{ text-decoration:none; color:#fff; font-size:15px; font-weight:500; }
+  .contact-list span.label{ color:#8C96AB; font-size:12.5px; display:block; }
+  .footer-bottom{
+    border-top:1px solid rgba(255,255,255,0.12); margin-top:48px; padding-top:20px;
+    font-size:13px; color:#8C96AB; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  }
+
+  @media (max-width:860px){
+    .nav-links, .nav-cta{ display:none; }
+    .menu-btn{ display:block; }
+    .hero-grid, #about .about-body, .footer-grid{ grid-template-columns:1fr; }
+    .stats-grid{ grid-template-columns:repeat(2,1fr); row-gap:22px; }
+    .skill-groups{ grid-template-columns:1fr; }
+    .edu-lang{ grid-template-columns:1fr; }
+    .hero h1{ font-size:34px; }
+    .wrap{ padding:0 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <a class="nav-mark" href="#top">Joel Pesic</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="nav-cta" href="mailto:joelpesic@gmail.com">Email me</a>
+    <button class="menu-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<div id="top"></div>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <h1>Calm, clear, and&nbsp;always following up.</h1>
+      <p class="lede">I'm Joel Pesic, a customer support professional based in Nairobi. For over four years I've helped a UK-based client base sort out account issues, billing questions and everything in between — and I stay on a case until it's actually resolved, not just closed.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="mailto:joelpesic@gmail.com">Get in touch</a>
+        <a class="btn btn-ghost" href="#experience">See my experience</a>
+      </div>
+    </div>
+    <div class="chat-card">
+      <div class="chat-head">
+        <span>Case <strong>#4192</strong></span>
+        <span>Live chat</span>
+      </div>
+      <div class="bubble in">My account's been locked for two days and support keeps closing my ticket without fixing anything.</div>
+      <div class="bubble out">That's frustrating, I'm sorry. I've reopened your case myself — give me a moment to verify your details and I'll get this sorted today.</div>
+      <div class="bubble in">Thank you, finally someone who's actually helping.</div>
+      <div class="chat-status"><span class="dot"></span>Resolved &middot; same day</div>
+    </div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="wrap stats-grid">
+    <div class="stat"><b>4+ yrs</b><span>Customer support experience</span></div>
+    <div class="stat"><b>UK market</b><span>Daily cross-timezone support</span></div>
+    <div class="stat"><b>C1</b><span>English proficiency</span></div>
+    <div class="stat"><b>1 promotion</b><span>Earned on performance</span></div>
+  </div>
+</div>
+
+<section id="about">
+  <div class="wrap about-body">
+    <div>
+      <div class="section-head" style="margin-bottom:20px;">
+        <h2>About</h2>
+      </div>
+      <p>I've spent my career on the other end of the phone, chat window, or email thread from someone who needs help — and I've learned that most people don't want a fast answer, they want the right one. That means listening properly, checking the details, and following up until things are actually fixed.</p>
+      <p>Most of my experience has been supporting Bolt's UK riders and drivers through Teleperformance Kenya, handling everything from billing questions to account verification and compliance documentation. I keep detailed records of every interaction, escalate the cases that need it, and I've trained several new teammates on how to do the same.</p>
+      <p>Outside of the day-to-day queue, I care about getting the small things right: accurate notes, a clear explanation, and a customer who isn't left wondering what happens next.</p>
+    </div>
+    <div class="about-side">
+      <dl>
+        <dt>Based in</dt><dd>Nairobi, Kenya</dd>
+        <dt>Currently</dt><dd>Operations Specialist, Bolt UK</dd>
+        <dt>Education</dt><dd>Diploma, Telecommunications &amp; IT (JKUAT)</dd>
+        <dt>Languages</dt><dd>English (C1), Swahili (native)</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Experience</h2>
+      <p>Four years across four roles, all in customer-facing support for international clients.</p>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-date">Dec 2024 &ndash; Jul 2026</div>
+        <div class="tl-role">Operations Specialist &mdash; Bolt UK</div>
+        <div class="tl-co">Teleperformance Kenya</div>
+        <div class="tl-desc">Point of contact for driver account and compliance cases &mdash; verifying documentation, resolving escalations, and mentoring new teammates on documentation standards.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Jan 2022 &ndash; Nov 2024</div>
+        <div class="tl-role">Customer Support Specialist &mdash; Bolt UK</div>
+        <div class="tl-co">Teleperformance Kenya</div>
+        <div class="tl-desc">Handled billing, account access and complaint resolution across phone, email and chat for UK riders and drivers. Promoted to Operations Specialist on performance.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Jun 2021 &ndash; Dec 2021</div>
+        <div class="tl-role">Outbound Customer Engagement Representative &mdash; Zuku Kenya Campaign</div>
+        <div class="tl-co">Horizons Contact Center Kenya</div>
+        <div class="tl-desc">Managed billing conversations and payment options for a high volume of daily calls, consistently meeting quality targets.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Jan 2021 &ndash; May 2021</div>
+        <div class="tl-role">Frontline Customer Service Representative</div>
+        <div class="tl-co">Telkom Kenya</div>
+        <div class="tl-desc">Resolved inbound billing, account and service queries, and kept customer records accurate and current.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Skills</h2>
+      <p>What I bring to a support team, grouped by how it shows up day to day.</p>
+    </div>
+    <div class="skill-groups">
+      <div class="skill-group">
+        <h3>Talking with customers</h3>
+        <div class="tag-row">
+          <span class="tag">Phone, email &amp; chat support</span>
+          <span class="tag">Active listening</span>
+          <span class="tag">Complaint resolution</span>
+          <span class="tag">Calm under pressure</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Keeping things organised</h3>
+        <div class="tag-row">
+          <span class="tag">CRM &amp; ticketing systems</span>
+          <span class="tag">Account verification</span>
+          <span class="tag">Record accuracy</span>
+          <span class="tag">Attention to detail</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Working with a team</h3>
+        <div class="tag-row">
+          <span class="tag">Escalation handling</span>
+          <span class="tag">Cross-team coordination</span>
+          <span class="tag">Training &amp; mentoring</span>
+          <span class="tag">MS Office</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="edu-lang" style="padding-top:0;">
+  <div class="wrap edu-lang">
+    <div>
+      <h3>Education</h3>
+      <div class="item">
+        <b>Diploma in Telecommunications and Information Engineering</b>
+        <span>Jomo Kenyatta University of Agriculture and Technology (JKUAT), 2019&ndash;2021</span>
+      </div>
+    </div>
+    <div>
+      <h3>Languages</h3>
+      <div class="item"><b>English</b><span>Professional / Advanced (C1) proficiency</span></div>
+      <div class="item"><b>Swahili</b><span>Native</span></div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap footer-grid">
+    <div>
+      <h2>Let's talk.</h2>
+      <p>If you're looking for someone who'll stay on a case until it's genuinely resolved, I'd love to hear from you.</p>
+    </div>
+    <ul class="contact-list">
+      <li><span class="label">Email</span><a href="mailto:joelpesic@gmail.com">joelpesic@gmail.com</a></li>
+      <li><span class="label">Phone</span><a href="tel:+254748058954">+254 748 058 954</a></li>
+      <li><span class="label">LinkedIn</span><a href="https://linkedin.com/in/joel-pesic-401a6941b" target="_blank" rel="noopener">linkedin.com/in/joel-pesic-401a6941b</a></li>
+      <li><span class="label">Location</span><span style="color:#fff;">Nairobi, Kenya</span></li>
+    </ul>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>&copy; 2026 Joel Pesic</span>
+    <span>Available for remote customer support roles</span>
+  </div>
+</footer>
+
+<script>
+  document.querySelector('.menu-btn').addEventListener('click', function(){
+    var links = document.querySelector('.nav-links');
+    var cta = document.querySelector('.nav-cta');
+    var open = links.style.display === 'flex';
+    links.style.display = open ? 'none' : 'flex';
+    cta.style.display = open ? 'none' : 'inline-block';
+    links.style.flexDirection = 'column';
+    links.style.position='absolute'; links.style.top='60px'; links.style.right='20px';
+    links.style.background='#fff'; links.style.padding='16px 20px'; links.style.borderRadius='6px';
+    links.style.border='1px solid #E1DACB'; links.style.gap='14px';
+  });
+</script>
+
+</body>
+</html>
